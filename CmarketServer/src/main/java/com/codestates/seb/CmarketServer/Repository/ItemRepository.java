@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -23,7 +24,11 @@ public class ItemRepository {
         // Item 전체를 리턴합니다
         // TODO :
 
-        return null;
+        List<Items> list = entityManager
+                .createQuery("SELECT item FROM Items as item ",Items.class)
+                .getResultList();
+        entityManager.close();
+        return list;
     }
 
 }

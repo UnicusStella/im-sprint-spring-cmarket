@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Repository
 @Transactional
@@ -48,6 +49,7 @@ public class OrderRepository {
             entityManager.persist(orderItems);
         }
 
+
         // entityManager를 종료합니다.
         entityManager.flush();
         entityManager.close();
@@ -58,6 +60,18 @@ public class OrderRepository {
         // 양방향 매핑 관계를 만들어 주어야합니다.
         // orderItems 객체를 통해 Orders와 Items 객체에 접근하여야합니다.
         // TODO :
+        List<OrderItems> orderList = entityManager.createQuery("SELECT *" +
+                "FROM OrderItems as o_i " +
+                        "LEFT JOIN items as i ON i.id = o_i.item_id" +
+                        "LEFT JOIN orders as o ON o.id = o_i.order_id",OrderItems.class)
+                .getResultList();
+
+
+
+
+
+
+
 
 
         // entityManager를 종료합니다.

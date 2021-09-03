@@ -1,7 +1,9 @@
 package com.codestates.seb.CmarketServer.Entity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 public class Orders {
@@ -19,6 +21,9 @@ public class Orders {
 
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;
+
+    @OneToMany(mappedBy = "orders")
+    private List<OrderItems> orderItems = new ArrayList<OrderItems>();
 
     public Orders(){    }
 

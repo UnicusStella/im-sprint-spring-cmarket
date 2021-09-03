@@ -1,6 +1,8 @@
 package com.codestates.seb.CmarketServer.Entity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Items {
@@ -17,6 +19,9 @@ public class Items {
 
     @Column(nullable = false)
     private String image;
+
+    @OneToMany(mappedBy = "items")
+    private List<OrderItems> orderItems = new ArrayList<OrderItems>();
 
     public Items(){ }
 

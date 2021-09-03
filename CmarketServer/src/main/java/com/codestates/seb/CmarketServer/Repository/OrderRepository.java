@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -36,19 +37,20 @@ public class OrderRepository {
         // TODO :
         Orders orders = new Orders();
         orders.setUsers(users);
+        orders.setCreatedAt(new Date());
         orders.setTotalPrice(totalPrice);
         entityManager.persist(orders);
 
         // List 자료형인 order에 요소 값을 OrderItems 객체를 생성 후 저장합니다.
         // TODO :
-        for (int i = 0; i < order.size(); i++) {
+        for(OrdersDTO ordersDTO : order){
             OrderItems orderItems = new OrderItems();
-            orderItems.setItems(entityManager.find(Items.class, order.get(i).getItemId()));
-            orderItems.setOrderQuantity(order.get(i).getQuantity());
+            Items items = entityManager.find(Items.class, ordersDTO.getItemId());
             orderItems.setOrders(orders);
+            orderItems.setItems(items);
+            orderItems.setOrderQuantity(ordersDTO.getQuantity());
             entityManager.persist(orderItems);
         }
-
 
         // entityManager를 종료합니다.
         entityManager.flush();
@@ -60,19 +62,23 @@ public class OrderRepository {
         // 양방향 매핑 관계를 만들어 주어야합니다.
         // orderItems 객체를 통해 Orders와 Items 객체에 접근하여야합니다.
         // TODO :
-        List<OrderItems> orderList = entityManager.createQuery("SELECT *" +
-                "FROM OrderItems as o_i " +
-                        "LEFT JOIN items as i ON i.id = o_i.item_id" +
-                        "LEFT JOIN orders as o ON o.id = o_i.order_id",OrderItems.class)
-                .getResultList();
+        List<Orders> ordersList = entityManager.find(Users.class,id).getOrdersList();
 
+        for (Orders orders : ordersList){
+            List<OrderItems> orderItemsList = entityManager.find(Orders.class, orders.getId()).getOrderItemsList();
 
-
-
-
-
-
-
+            for(OrderItems orderItems : orderItemsList){
+                OrdersResDTO ordersResDTO = new OrdersResDTO();
+                ordersResDTO.setId(orderItems.getId());
+                ordersResDTO.setCreated_at(orders.getCreatedAt());
+                ordersResDTO.setImage(orderItems.getItems().getImage());
+                ordersResDTO.setName(orderItems.getItems().getName());
+                ordersResDTO.setOrder_quantity(orderItems.getOrderQuantity());
+                ordersResDTO.setPrice(orderItems.getItems().getPrice());
+                ordersResDTO.setTotal_price(orders.getTotalPrice());
+                list.add(ordersResDTO);
+            }
+        }
 
         // entityManager를 종료합니다.
         entityManager.flush();

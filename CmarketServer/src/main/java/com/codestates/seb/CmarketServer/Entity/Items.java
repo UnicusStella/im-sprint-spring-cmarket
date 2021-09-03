@@ -21,7 +21,7 @@ public class Items {
     private String image;
 
     @OneToMany(mappedBy = "items")
-    private List<OrderItems> orderItems = new ArrayList<OrderItems>();
+    private List<OrderItems> orderItemsList = new ArrayList<>();
 
     public Items(){ }
 

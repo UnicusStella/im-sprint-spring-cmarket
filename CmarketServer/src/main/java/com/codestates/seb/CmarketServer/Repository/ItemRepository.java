@@ -15,17 +15,17 @@ public class ItemRepository {
     private final EntityManager entityManager;
 
     @Autowired
-    public ItemRepository(EntityManager entityManager){
+    public ItemRepository(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
 
     @Transactional
-    public List<Items> FindItemList(){
+    public List<Items> FindItemList() {
         // Item 전체를 리턴합니다
         // TODO :
 
         List<Items> list = entityManager
-                .createQuery("SELECT item FROM Items as item ",Items.class)
+                .createQuery("SELECT item FROM Items as item ", Items.class)
                 .getResultList();
         entityManager.close();
         return list;

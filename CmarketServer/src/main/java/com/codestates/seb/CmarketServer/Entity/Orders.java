@@ -23,7 +23,15 @@ public class Orders {
     private Date createdAt;
 
     @OneToMany(mappedBy = "orders")
-    private List<OrderItems> orderItems = new ArrayList<OrderItems>();
+    private List<OrderItems> orderItemsList = new ArrayList<>();
+
+    public List<OrderItems> getOrderItemsList() {
+        return orderItemsList;
+    }
+
+    public void setOrderItemsList(List<OrderItems> orderItemsList) {
+        this.orderItemsList = orderItemsList;
+    }
 
     public Orders(){    }
 

@@ -3,7 +3,7 @@ import { addToCart, fetchData, notify, setProducts } from '../actions/index';
 import { useSelector, useDispatch } from 'react-redux';
 import Item from '../components/Item';
 
-function ItemListContainer () {
+function ItemListContainer() {
   const itemState = useSelector((state) => state.itemReducer);
   const cartState = useSelector((state) => state.cartReducer);
   const { items } = itemState;
@@ -25,9 +25,9 @@ function ItemListContainer () {
   };
 
   return (
-    <div id='item-list-container'>
-      <div id='item-list-body'>
-        <div id='item-list-title'>쓸모없는 선물 모음</div>
+    <div id="item-list-container">
+      <div id="item-list-body">
+        <div id="item-list-title">쓸모없는 선물 모음</div>
         {items.map((item, idx) => (
           <Item
             item={item}

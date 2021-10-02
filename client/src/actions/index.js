@@ -23,8 +23,8 @@ export const setProducts = (items) => {
   return {
     type: SET_PRODUCTS,
     payload: {
-      items
-    }
+      items,
+    },
   };
 };
 
@@ -41,8 +41,8 @@ export const setOrders = (data) => {
   return {
     type: SET_ORDERS,
     payload: {
-      orders
-    }
+      orders,
+    },
   };
 };
 
@@ -51,8 +51,8 @@ export const addToCart = (itemId) => {
     type: ADD_TO_CART,
     payload: {
       quantity: 1,
-      itemId
-    }
+      itemId,
+    },
   };
 };
 
@@ -60,8 +60,8 @@ export const removeFromCart = (itemId) => {
   return {
     type: REMOVE_FROM_CART,
     payload: {
-      itemId
-    }
+      itemId,
+    },
   };
 };
 
@@ -70,18 +70,20 @@ export const setQuantity = (itemId, quantity) => {
     type: SET_QUANTITY,
     payload: {
       itemId,
-      quantity
-    }
+      quantity,
+    },
   };
 };
 
-export const notify = (message, dismissTime = 5000) => (dispatch) => {
-  const uuid = Math.random();
-  dispatch(enqueueNotification(message, dismissTime, uuid));
-  setTimeout(() => {
-    dispatch(dequeueNotification());
-  }, dismissTime);
-};
+export const notify =
+  (message, dismissTime = 5000) =>
+  (dispatch) => {
+    const uuid = Math.random();
+    dispatch(enqueueNotification(message, dismissTime, uuid));
+    setTimeout(() => {
+      dispatch(dequeueNotification());
+    }, dismissTime);
+  };
 
 export const enqueueNotification = (message, dismissTime, uuid) => {
   return {
@@ -89,13 +91,13 @@ export const enqueueNotification = (message, dismissTime, uuid) => {
     payload: {
       message,
       dismissTime,
-      uuid
-    }
+      uuid,
+    },
   };
 };
 
 export const dequeueNotification = () => {
   return {
-    type: DEQUEUE_NOTIFICATION
+    type: DEQUEUE_NOTIFICATION,
   };
 };

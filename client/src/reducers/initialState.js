@@ -1,7 +1,6 @@
-export const initialState =
-{
+export const initialState = {
   items: [],
   cartItems: [],
   notifications: [],
-  orders: {}
+  orders: {},
 };

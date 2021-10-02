@@ -6,7 +6,7 @@ import notificationReducer from './notificationReducer';
 const rootReducer = combineReducers({
   itemReducer,
   cartReducer,
-  notificationReducer
+  notificationReducer,
 });
 
 export default rootReducer;
